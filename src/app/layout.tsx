@@ -5,7 +5,16 @@ export const metadata: Metadata = {
   title: "FocusFlow - Pomodoro Timer & Task Manager",
   description: "A simple, elegant Pomodoro timer with task management and statistics tracking.",
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      {
+        url: '/favicon.svg',
+        type: 'image/svg+xml',
+      },
+      {
+        url: '/favicon.ico',
+        sizes: 'any',
+      }
+    ],
   },
 };
 
