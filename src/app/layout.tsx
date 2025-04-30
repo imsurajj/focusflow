@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Courier_Prime } from 'next/font/google';
 import "./globals.css";
+import GoogleAnalytics from './components/GoogleAnalytics';
 
 // Initialize the Courier Prime font
 const courierPrime = Courier_Prime({
@@ -34,6 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={courierPrime.className}>
+        <GoogleAnalytics />
         {children}
       </body>
     </html>
