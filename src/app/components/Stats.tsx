@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 export interface UserStats {
   totalPomodoros: number;
   totalFocusTime: number; // in minutes

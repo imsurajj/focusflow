@@ -13,9 +13,14 @@ class SoundService {
   private initAudioContext() {
     if (typeof window !== 'undefined') {
       try {
-        window.AudioContext = window.AudioContext || (window as any).webkitAudioContext;
-        this.audioContext = new AudioContext();
-      } catch (e) {
+        // Use a safer approach for cross-browser compatibility
+        const AudioContextClass = window.AudioContext || 
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (window as any).webkitAudioContext;
+        if (AudioContextClass) {
+          this.audioContext = new AudioContextClass();
+        }
+      } catch {
         console.error('Web Audio API is not supported in this browser');
       }
     }
@@ -26,7 +31,7 @@ class SoundService {
   }
 
   // Create simple beep sounds programmatically
-  private generateTone(frequency: number, duration: number, type: OscillatorType = 'sine'): AudioBuffer | null {
+  private generateTone(frequency: number, duration: number): AudioBuffer | null {
     if (!this.audioContext) return null;
     
     const sampleRate = this.audioContext.sampleRate;
@@ -64,13 +69,13 @@ class SoundService {
     }
     
     // Generate notification sounds
-    this.sounds['timerComplete'] = this.generateTone(783.99, 0.15, 'sine') || new AudioBuffer({ length: 1, sampleRate: 44100 });
+    this.sounds['timerComplete'] = this.generateTone(783.99, 0.15) || new AudioBuffer({ length: 1, sampleRate: 44100 });
     // C5 note
-    this.sounds['shortBreak'] = this.generateTone(523.25, 0.1, 'sine') || new AudioBuffer({ length: 1, sampleRate: 44100 });
+    this.sounds['shortBreak'] = this.generateTone(523.25, 0.1) || new AudioBuffer({ length: 1, sampleRate: 44100 });
     // G5 note
-    this.sounds['longBreak'] = this.generateTone(783.99, 0.2, 'sine') || new AudioBuffer({ length: 1, sampleRate: 44100 });
+    this.sounds['longBreak'] = this.generateTone(783.99, 0.2) || new AudioBuffer({ length: 1, sampleRate: 44100 });
     // E5 note
-    this.sounds['buttonClick'] = this.generateTone(659.25, 0.05, 'sine') || new AudioBuffer({ length: 1, sampleRate: 44100 });
+    this.sounds['buttonClick'] = this.generateTone(659.25, 0.05) || new AudioBuffer({ length: 1, sampleRate: 44100 });
   }
 
   // Play a specific sound

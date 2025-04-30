@@ -1,5 +1,13 @@
 import type { Metadata } from "next";
+import { Courier_Prime } from 'next/font/google';
 import "./globals.css";
+
+// Initialize the Courier Prime font
+const courierPrime = Courier_Prime({
+  weight: ['400', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: "FocusFlow - Pomodoro Timer & Task Manager",
@@ -25,10 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet" />
-      </head>
-      <body>
+      <body className={courierPrime.className}>
         {children}
       </body>
     </html>

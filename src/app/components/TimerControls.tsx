@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 interface TimerControlsProps {
   isActive: boolean;
@@ -15,12 +15,6 @@ export default function TimerControls({
   onReset, 
   onSkip 
 }: TimerControlsProps) {
-  const [shortcuts] = useState({
-    start: 'Space',
-    reset: 'R',
-    skip: 'S'
-  });
-
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       // Don't trigger shortcuts if typing in input or textarea
@@ -30,7 +24,11 @@ export default function TimerControls({
 
       if (e.key === ' ' || e.code === 'Space') {
         e.preventDefault();
-        isActive ? onPause() : onStart();
+        if (isActive) {
+          onPause();
+        } else {
+          onStart();
+        }
       } else if (e.key.toLowerCase() === 'r' || e.key === 'R') {
         e.preventDefault();
         onReset();

@@ -37,13 +37,17 @@ export default function Timer({
 
       if (e.key === ' ' || e.code === 'Space') {
         e.preventDefault();
-        isActive && onPause ? onPause() : onStart && onStart();
+        if (isActive && onPause) {
+          onPause();
+        } else if (onStart) {
+          onStart();
+        }
       } else if (e.key.toLowerCase() === 'r') {
         e.preventDefault();
-        onReset && onReset();
+        if (onReset) onReset();
       } else if (e.key.toLowerCase() === 's') {
         e.preventDefault();
-        onSkip && onSkip();
+        if (onSkip) onSkip();
       }
     };
 

@@ -33,10 +33,7 @@ export default function Home() {
   
   // UI state
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [showTasksPopup, setShowTasksPopup] = useState(false);
   const containerRef = useRef<HTMLElement>(null);
-  const [tasksCardOpen, setTasksCardOpen] = useState(true);
-  const [settingsCardOpen, setSettingsCardOpen] = useState(false);
   
   // Add state to track which card is open
   const [activeCard, setActiveCard] = useState<'tasks' | 'settings' | 'stats'>('tasks');
@@ -100,13 +97,6 @@ export default function Home() {
     };
   }, []);
 
-  // Auto open/close cards based on tasks
-  useEffect(() => {
-    if (tasks.length > 0) {
-      setTasksCardOpen(true);
-    }
-  }, [tasks]);
-  
   // Save settings when they change
   useEffect(() => {
     storageService.saveSettings(settings);
@@ -260,10 +250,7 @@ export default function Home() {
   // Select a task for the pomodoro
   const handleSelectTask = (id: string) => {
     setCurrentTask(id);
-    // Close tasks popup if in fullscreen
-    if (isFullscreen) {
-      setShowTasksPopup(false);
-    }
+    // Close tasks popup if in fullscreen (removed showTasksPopup state)
   };
   
   // Timer control handlers
@@ -330,7 +317,6 @@ export default function Home() {
         document.exitFullscreen()
           .then(() => {
             setIsFullscreen(false);
-            setShowTasksPopup(false);
           })
           .catch(err => {
             console.error(`Error attempting to exit full-screen mode: ${err.message}`);
@@ -341,7 +327,7 @@ export default function Home() {
 
   // Toggle card function
   const toggleCard = (card: 'tasks' | 'settings' | 'stats') => {
-    setActiveCard(activeCard === card ? null : card);
+    setActiveCard(activeCard === card ? 'tasks' : card);
   };
 
   // Current task name for display
