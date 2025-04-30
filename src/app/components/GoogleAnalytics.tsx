@@ -7,7 +7,7 @@ export default function GoogleAnalytics() {
     <>
       <Script
         strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=G-H7HPVCPWFD`}
+        src={`https://www.googletagmanager.com/gtag/js?id=G-LDHCZRDSTW`}
       />
       <Script
         id="google-analytics"
