@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Courier_Prime } from 'next/font/google';
 import "./globals.css";
 import GoogleAnalytics from './components/GoogleAnalytics';
+import ServiceWorkerRegister from './components/ServiceWorkerRegister';
 
 // Initialize the Courier Prime font
 const courierPrime = Courier_Prime({
@@ -34,8 +35,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#333333" />
+      </head>
       <body className={courierPrime.className}>
         <GoogleAnalytics />
+        <ServiceWorkerRegister />
         {children}
       </body>
     </html>
